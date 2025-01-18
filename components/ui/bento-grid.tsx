@@ -9,6 +9,7 @@ import { cn } from "@/utils/en";
 import BlurButton from "./BlurButton";
 import { useState } from "react";
 import { BackgroundGradientAnimation } from "./GradientBg";
+import GridGlobe from "./GridGlobe";
 
 // import { BackgroundGradientAnimation } from "./GradientBg";
 // import GridGlobe from "./GridGlobe";
@@ -141,7 +142,7 @@ export const BentoGridItem = ({
           </div>
 
           {/* for the github 3d globe */}
-          {/* {id === 2 && <GridGlobe />} */}
+          {id === 2 && <GridGlobe />}
 
           {/* Tech stack list div */}
           {id === 3 && (
