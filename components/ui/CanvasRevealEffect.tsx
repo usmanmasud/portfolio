@@ -12,10 +12,6 @@ export const CanvasRevealEffect = ({
   dotSize,
   showGradient = true,
 }: {
-  /**
-   * 0.1 - slower
-   * 1.0 - faster
-   */
   animationSpeed?: number;
   opacities?: number[];
   colors?: number[][];
@@ -188,7 +184,6 @@ const ShaderMaterial = ({
   maxFps = 60,
 }: {
   source: string;
-  hovered?: boolean;
   maxFps?: number;
   uniforms: Uniforms;
 }) => {
@@ -211,10 +206,11 @@ const ShaderMaterial = ({
   });
 
   const getUniforms = () => {
-    const preparedUniforms: any = {};
+    const preparedUniforms: { [key: string]: { value: any; type: string } } =
+      {};
 
     for (const uniformName in uniforms) {
-      const uniform: any = uniforms[uniformName];
+      const uniform: { value: any; type: string } = uniforms[uniformName];
 
       switch (uniform.type) {
         case "uniform1f":
@@ -256,22 +252,9 @@ const ShaderMaterial = ({
     return preparedUniforms;
   };
 
-  // Shader material
   const material = useMemo(() => {
     const materialObject = new THREE.ShaderMaterial({
-      vertexShader: `
-      precision mediump float;
-      in vec2 coordinates;
-      uniform vec2 u_resolution;
-      out vec2 fragCoord;
-      void main(){
-        float x = position.x;
-        float y = position.y;
-        gl_Position = vec4(x, y, 0.0, 1.0);
-        fragCoord = (position.xy + vec2(1.0)) * 0.5 * u_resolution;
-        fragCoord.y = u_resolution.y - fragCoord.y;
-      }
-      `,
+      vertexShader: `...`,
       fragmentShader: source,
       uniforms: getUniforms(),
       glslVersion: THREE.GLSL3,
@@ -286,26 +269,7 @@ const ShaderMaterial = ({
   return (
     <mesh ref={ref as React.RefObject<THREE.Mesh>}>
       <planeGeometry args={[2, 2]} />
-      <primitive object={material} attach="material" />
+      <primitive object={material} />
     </mesh>
   );
 };
-
-const Shader: React.FC<ShaderProps> = ({ source, uniforms, maxFps = 60 }) => {
-  return (
-    <Canvas className="absolute inset-0  h-full w-full">
-      <ShaderMaterial source={source} uniforms={uniforms} maxFps={maxFps} />
-    </Canvas>
-  );
-};
-
-interface ShaderProps {
-  source: string;
-  uniforms: {
-    [key: string]: {
-      value: number[] | number[][] | number;
-      type: string;
-    };
-  };
-  maxFps?: number;
-}
