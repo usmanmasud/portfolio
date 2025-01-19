@@ -32,7 +32,7 @@ export const CanvasRevealEffect = ({
           opacities={
             opacities ?? [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1]
           }
-          shader={`
+          shader={` 
               float animation_speed_factor = ${animationSpeed.toFixed(1)};
               float intro_offset = distance(u_resolution / 2.0 / u_total_size, st2) * 0.01 + (random(st2) * 0.15);
               opacity *= step(intro_offset, u_time * animation_speed_factor);
@@ -120,7 +120,7 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
 
   return (
     <Shader
-      source={`
+      source={` 
         precision mediump float;
         in vec2 fragCoord;
 
@@ -181,6 +181,7 @@ type Uniforms = {
     type: string;
   };
 };
+
 const ShaderMaterial = ({
   source,
   uniforms,
@@ -192,7 +193,7 @@ const ShaderMaterial = ({
   uniforms: Uniforms;
 }) => {
   const { size } = useThree();
-  const ref = useRef<THREE.Mesh>(null);
+  const ref = useRef<THREE.Mesh>(null); // Corrected type to THREE.Mesh
   let lastFrameTime = 0;
 
   useFrame(({ clock }) => {
@@ -203,7 +204,8 @@ const ShaderMaterial = ({
     }
     lastFrameTime = timestamp;
 
-    const material: any = ref.current.material;
+    const material: THREE.ShaderMaterial = ref.current
+      .material as THREE.ShaderMaterial; // Corrected type to ShaderMaterial
     const timeLocation = material.uniforms.u_time;
     timeLocation.value = timestamp;
   });
@@ -282,7 +284,7 @@ const ShaderMaterial = ({
   }, [size.width, size.height, source]);
 
   return (
-    <mesh ref={ref as any}>
+    <mesh ref={ref as React.RefObject<THREE.Mesh>}>
       <planeGeometry args={[2, 2]} />
       <primitive object={material} attach="material" />
     </mesh>
@@ -296,6 +298,7 @@ const Shader: React.FC<ShaderProps> = ({ source, uniforms, maxFps = 60 }) => {
     </Canvas>
   );
 };
+
 interface ShaderProps {
   source: string;
   uniforms: {
