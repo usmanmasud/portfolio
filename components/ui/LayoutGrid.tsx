@@ -7,7 +7,7 @@ import { Button } from "./MovingBorders";
 
 type Card = {
   id: number;
-  content: JSX.Element | React.ReactNode | string;
+  content: React.ReactNode | string;
   className: string;
   thumbnail: string;
 };
@@ -31,6 +31,8 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
     <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-4 max-w-7xl mx-auto gap-10 ">
       {cards.map((card, i) => (
         <Button
+          containerClassName=""
+          borderClassName=""
           key={i}
           borderRadius="1.75rem"
           //   default is 2000
