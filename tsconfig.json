@@ -28,7 +28,11 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "components/ui/Globe.jsx",
-    "components/ui/FloatingNavbar.jsx"
+    "components/ui/FloatingNavbar.jsx",
+    "components/ui/TextGenerateEffect.jsx",
+    "components/ui/MovingBorders.jsx",
+    "components/ui/HoverBorder.jsx",
+    "components/ui/CanvasRevealEffect.jsx"
   ],
   "exclude": ["node_modules"]
 }
