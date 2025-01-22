@@ -30,7 +30,7 @@
     "components/ui/Globe.jsx",
     "components/ui/FloatingNavbar.jsx",
     "components/ui/TextGenerateEffect.jsx",
-    "components/ui/MovingBorders.tsx",
+    "components/ui/MovingBorders.jsx",
     "components/ui/HoverBorder.jsx",
     "components/ui/CanvasRevealEffect.jsx"
   ],
