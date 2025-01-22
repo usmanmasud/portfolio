@@ -68,7 +68,7 @@ export const MovingBorder = ({
   ry,
   ...otherProps
 }) => {
-  const pathRef = useRef();
+  const pathRef = useRef(null);
   const progress = useMotionValue(0);
 
   useAnimationFrame((time) => {
